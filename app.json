@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Motiva App",
+    "slug": "motiva-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "platforms": ["ios", "android", "web"]
+  }
+}
