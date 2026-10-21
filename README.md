@@ -1,8 +1,10 @@
-# Motiva App - Sprint 3
+# Motiva — Registro de Ocorrências Rodoviárias
 
-Aplicativo para registrar ocorrências em rodovias e consultar o local, a descrição e o nível de risco de cada registro. Ajuda a organizar as ocorrências pendentes e as que já foram resolvidas.
+Aplicativo mobile desenvolvido para apoiar o registro e o acompanhamento de ocorrências em rodovias administradas pela Motiva.
 
-Esta versão continua o app da Sprint 2 e acrescenta persistência local, local e data do registro e uma tela de detalhe.
+O problema atendido é a necessidade de organizar, de forma simples, informações sobre situações encontradas na rodovia. O usuário principal é a equipe responsável pelo monitoramento e pela operação das vias. Sua ação principal no aplicativo é cadastrar uma ocorrência com título, descrição, local e nível de risco e, depois, consultá-la na lista ou na tela de detalhe.
+
+Esta entrega final mantém o código funcional da Sprint 3. O foco da Sprint 4 é documentar e demonstrar o fluxo já implementado, sem adicionar novas funcionalidades.
 
 ## Integrantes
 
@@ -15,92 +17,164 @@ Esta versão continua o app da Sprint 2 e acrescenta persistência local, local 
 | André Eduardo Martins | 563297 |
 | Kauany Ribeiro de Moura | 564576 |
 
-## Repositório e vídeo
+## Links da entrega
 
-- Repositório da Sprint 3: [Motiva-Sprint-3](https://github.com/luc916/Motiva-Sprint-3).
-- Vídeo de demonstração: [Assistir à demonstração](https://youtu.be/Q_gX5FAII8c).
-- [Sprint 1 - proposta e protótipo](https://github.com/Kauany-Moura/motiva-app)
-- [Sprint 2 - projeto usado como base](https://github.com/RafaelLVaz/Registro-de-Ocorrencias-Motiva)
+- Repositório: [github.com/luc916/Motiva-Sprint-3](https://github.com/luc916/Motiva-Sprint-3)
+- Vídeo de demonstração no YouTube: [youtu.be/Q_gX5FAII8c](https://youtu.be/Q_gX5FAII8c)
 
-## Como rodar
+> O vídeo deve permanecer como **Não listado**. Dessa forma, qualquer pessoa com o link consegue assistir, mas ele não aparece publicamente nas buscas do YouTube.
 
-Instale o Node.js 22 LTS (22.13 ou superior) ou 24 LTS (24.3 ou superior) e o Expo Go atualizado no celular. O projeto usa Expo SDK 57.
+## Tecnologias
 
-Na pasta que contém o arquivo `package.json`, execute:
+- React Native
+- Expo
+- TypeScript
+- React Navigation
+- Context API
+- AsyncStorage
+
+## Como executar
+
+### Pré-requisitos
+
+- Node.js em uma versão LTS
+- npm
+- Expo Go atualizado no celular, caso o teste seja feito em um dispositivo físico
+
+Clone o repositório, entre na pasta do projeto e instale as dependências:
 
 ```bash
+git clone https://github.com/luc916/Motiva-Sprint-3.git
+cd Motiva-Sprint-3
 npm install
-npx expo login
+```
+
+Inicie o Expo:
+
+```bash
 npx expo start
 ```
 
-Entre na mesma conta Expo no computador e no Expo Go do celular. O Expo Go SDK 57 exige esse login nos dois dispositivos.
+Após a inicialização:
 
-Com o computador e o celular na mesma rede, leia o QR code com o Expo Go no Android ou com a câmera no iPhone. Para testar no navegador:
+- leia o QR code com o Expo Go para abrir no celular;
+- pressione `a` para abrir no Android, se houver um emulador configurado;
+- pressione `i` para abrir no iOS, se estiver usando macOS com o simulador configurado;
+- pressione `w` para abrir a versão web no navegador.
+
+O computador e o celular devem estar na mesma rede quando o projeto for aberto pelo Expo Go. Como alternativa, a versão web pode ser iniciada diretamente com:
 
 ```bash
 npm run web
 ```
 
-Para conferir os tipos:
+Para conferir os tipos TypeScript:
 
 ```bash
 npm run typecheck
 ```
 
-## Telas e fluxo
+## Comportamento esperado
 
-1. A lista mostra as ocorrências pendentes, com descrição, local, data e risco baixo, médio ou alto.
-2. O botão **+** abre o cadastro. Preencha título, descrição e local e escolha o risco.
-3. Toque em **ADICIONAR**. O app grava os dados e volta para a lista já atualizada.
-4. Toque em **Ver detalhes** para consultar o registro completo. O botão de voltar retorna à lista.
-5. Feche o aplicativo e abra novamente. A ocorrência cadastrada continua disponível.
-6. O botão de confirmação move o registro para **Resolvidas**. A lixeira exclui o registro. Essas alterações também ficam salvas.
+1. Na primeira abertura, o aplicativo mostra exemplos de ocorrências pendentes e resolvidas.
+2. Na aba **Pendentes**, toque no botão **+** para abrir o cadastro.
+3. Preencha o título, a descrição e o local e selecione o risco **Baixo**, **Médio** ou **Alto**.
+4. Toque em **ADICIONAR**. A nova ocorrência será salva e aparecerá no início da lista.
+5. Na lista, confira o título, a descrição, o local, a data e a classificação de risco.
+6. Toque em **Ver detalhes** para abrir o registro completo.
+7. Volte para a lista, feche o aplicativo e abra novamente — ou recarregue a página, na versão web. A ocorrência cadastrada deve continuar disponível.
+8. O botão de confirmação marca uma ocorrência como resolvida e a move para a aba **Resolvidas**. O botão de lixeira exclui o registro. Essas alterações também são persistidas.
 
-O risco é selecionado manualmente no cadastro. O ID numérico e a data são gerados ao salvar.
+## Classificação de risco
 
-## Persistência
+O risco é selecionado manualmente no cadastro e aparece tanto no cartão da lista quanto na tela de detalhe:
 
-O arquivo `src/services/ocorrenciaStorage.ts` concentra o acesso ao AsyncStorage. As telas usam o contexto, sem acessar o storage diretamente.
+- **Baixo** — situação controlada, sem risco imediato;
+- **Médio** — requer atenção e monitoramento;
+- **Alto** — perigo imediato, com necessidade de intervenção urgente.
 
-A lista é convertida em texto com `JSON.stringify` e salva na chave `@motiva:ocorrencias`. Ao abrir o app, `JSON.parse` recupera os registros. Os seis exemplos de `src/data/ocorrenciasMock.ts` são usados somente quando essa chave ainda não existe. Uma lista vazia salva não é substituída pelos exemplos.
+Cada nível possui cor própria para facilitar a identificação visual. O aplicativo não calcula o risco automaticamente.
 
-O contexto mantém `useState<Ocorrencia[]>([])` e atualiza as telas depois que a gravação termina. Durante o carregamento e a gravação, o app evita novas alterações. Se houver falha ao salvar, exibe uma mensagem e mantém os dados anteriores.
+## Tipo `Ocorrencia`
 
-Os dados ficam no aparelho. Na versão web, o AsyncStorage usa o armazenamento local do navegador. Para repetir o teste na web, use o mesmo navegador, endereço e porta. Desinstalar o app ou limpar seus dados pode apagar os registros; não há sincronização entre dispositivos.
+O tipo principal está definido em `src/types/index.ts`:
 
-## Organização
-
-```text
-App.tsx
-src/
-  components/
-    OcorrenciaCard.tsx
-  context/
-    OcorrenciaContext.tsx
-  data/
-    ocorrenciasMock.ts
-  navigation/
-    AppNavigator.tsx
-  screens/
-    ListaOcorrencias.tsx
-    NovaOcorrencia.tsx
-    DetalheOcorrencia.tsx
-    Resolvidas.tsx
-  services/
-    ocorrenciaStorage.ts
-  types/
-    index.ts
+```ts
+export type Ocorrencia = {
+  id: number;
+  descricao: string;
+  local: string;
+  risco: 'baixo' | 'medio' | 'alto';
+  data: string;
+  titulo: string;
+  resolvida: boolean;
+};
 ```
 
-O tipo `Ocorrencia` mantém os campos obrigatórios `id`, `descricao`, `local`, `risco` e `data`. Também preserva `titulo` e `resolvida`, usados no projeto anterior. A navegação continua com React Navigation e o estado compartilhado com Context API.
+Esse tipo é usado para manter o mesmo formato de dados em todo o fluxo:
 
-## Conferência antes da entrega
+- nos dados iniciais de `src/data/ocorrenciasMock.ts`;
+- no estado compartilhado de `src/context/OcorrenciaContext.tsx`;
+- na leitura e gravação de `src/services/ocorrenciaStorage.ts`;
+- nos cartões, listas, cadastro e detalhe das ocorrências.
 
-- Cadastrar registros com os três níveis de risco.
-- Conferir o registro na lista e no detalhe.
-- Voltar do cadastro e do detalhe sem reiniciar o app.
-- Fechar completamente o app e reabrir, conferindo os mesmos registros.
-- Resolver uma ocorrência, reabrir e conferir a aba Resolvidas.
-- Conferir os links do repositório e do vídeo acima.
+O `id` e a `data` são gerados quando a ocorrência é salva. O campo `resolvida` separa os registros pendentes dos concluídos.
 
+## Persistência dos dados
+
+A persistência local é feita com `AsyncStorage` no arquivo `src/services/ocorrenciaStorage.ts`.
+
+A lista de ocorrências é convertida para JSON e salva na chave `@motiva:ocorrencias`. Ao abrir o aplicativo, o conteúdo dessa chave é lido e convertido novamente em uma lista de objetos `Ocorrencia`. Os dados iniciais de `src/data/ocorrenciasMock.ts` são carregados somente quando ainda não existe conteúdo salvo.
+
+O `OcorrenciaContext` concentra as operações de carregar, adicionar, resolver e excluir. As telas usam esse contexto e não acessam o armazenamento diretamente.
+
+Os dados permanecem no aparelho. Na versão web, ficam no armazenamento local do navegador. Desinstalar o aplicativo ou limpar seus dados pode apagar os registros, pois não há sincronização com um servidor.
+
+## Estrutura de pastas
+
+```text
+Motiva-Sprint-3/
+├── App.tsx
+├── app.json
+├── package.json
+├── tsconfig.json
+└── src/
+    ├── components/
+    │   └── OcorrenciaCard.tsx
+    ├── context/
+    │   └── OcorrenciaContext.tsx
+    ├── data/
+    │   └── ocorrenciasMock.ts
+    ├── navigation/
+    │   └── AppNavigator.tsx
+    ├── screens/
+    │   ├── DetalheOcorrencia.tsx
+    │   ├── ListaOcorrencias.tsx
+    │   ├── NovaOcorrencia.tsx
+    │   └── Resolvidas.tsx
+    ├── services/
+    │   └── ocorrenciaStorage.ts
+    └── types/
+        └── index.ts
+```
+
+### Responsabilidade de cada pasta
+
+- `components`: componentes reutilizáveis da interface;
+- `context`: estado compartilhado e operações sobre as ocorrências;
+- `data`: dados de exemplo usados na primeira abertura;
+- `navigation`: configuração das abas e das telas;
+- `screens`: telas do fluxo principal;
+- `services`: leitura e gravação no armazenamento local;
+- `types`: tipos TypeScript utilizados pelo projeto.
+
+## Checklist de demonstração
+
+- [ ] Abrir este README e explicar o problema, o usuário e a ação principal.
+- [ ] Executar `npm install` e `npx expo start`.
+- [ ] Mostrar a lista de ocorrências.
+- [ ] Cadastrar uma ocorrência com local, descrição e risco.
+- [ ] Mostrar a nova ocorrência na lista e abrir seu detalhe.
+- [ ] Recarregar ou reabrir o aplicativo e confirmar que o dado permanece.
+- [ ] Encerrar mostrando o fluxo completo funcionando.
+- [ ] Confirmar que o vídeo tem no máximo 5 minutos e está como **Não listado**.
