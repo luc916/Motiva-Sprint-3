@@ -20,7 +20,7 @@ Esta entrega final mantém o código funcional da Sprint 3. O foco da Sprint 4 �
 ## Links da entrega
 
 - Repositório: [github.com/luc916/Motiva-Sprint-3](https://github.com/luc916/Motiva-Sprint-3)
-- Vídeo de demonstração no YouTube: [youtu.be/Q_gX5FAII8c](https://youtu.be/Q_gX5FAII8c)
+- Vídeo de demonstração no YouTube: [youtu.be/Ug7v_p8agiM](https://youtu.be/Ug7v_p8agiM)
 
 > O vídeo deve permanecer como **Não listado**. Dessa forma, qualquer pessoa com o link consegue assistir, mas ele não aparece publicamente nas buscas do YouTube.
 
@@ -170,11 +170,11 @@ Motiva-Sprint-3/
 
 ## Checklist de demonstração
 
-- [ ] Abrir este README e explicar o problema, o usuário e a ação principal.
-- [ ] Executar `npm install` e `npx expo start`.
-- [ ] Mostrar a lista de ocorrências.
-- [ ] Cadastrar uma ocorrência com local, descrição e risco.
-- [ ] Mostrar a nova ocorrência na lista e abrir seu detalhe.
-- [ ] Recarregar ou reabrir o aplicativo e confirmar que o dado permanece.
-- [ ] Encerrar mostrando o fluxo completo funcionando.
-- [ ] Confirmar que o vídeo tem no máximo 5 minutos e está como **Não listado**.
+- [x] Abrir este README e explicar o problema, o usuário e a ação principal.
+- [x] Executar `npm install` e `npx expo start`.
+- [x] Mostrar a lista de ocorrências.
+- [x] Cadastrar uma ocorrência com local, descrição e risco.
+- [x] Mostrar a nova ocorrência na lista e abrir seu detalhe.
+- [x] Recarregar ou reabrir o aplicativo e confirmar que o dado permanece.
+- [x] Encerrar mostrando o fluxo completo funcionando.
+- [x] Confirmar que o vídeo tem no máximo 5 minutos e está como **Não listado**.
